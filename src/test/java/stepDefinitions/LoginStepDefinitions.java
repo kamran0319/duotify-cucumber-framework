@@ -6,6 +6,7 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import pages.SignInPage;
 import utils.ConfigReader;
 import utils.Driver;
 
@@ -19,8 +20,10 @@ public class LoginStepDefinitions {
     }
     @When("I enter the valid credentials")
     public void i_enter_the_valid_credentials() {
-        Driver.getDriver().findElement(By.id("loginUsername")).sendKeys("duotech2023");
-        Driver.getDriver().findElement(By.id("loginPassword")).sendKeys("duotech", Keys.ENTER);
+        SignInPage signInPage = new SignInPage();
+        signInPage.getUsername().sendKeys(ConfigReader.getProperty("username"));
+        signInPage.getPassword().sendKeys(ConfigReader.getProperty("password"));
+        signInPage.getLoginButton().click();
     }
     @Then("I should be able to login")
     public void i_should_be_able_to_login() {
@@ -30,8 +33,10 @@ public class LoginStepDefinitions {
 
     @When("I enter the invalid credentials")
     public void i_enter_the_invalid_credentials() {
-        Driver.getDriver().findElement(By.id("loginUsername")).sendKeys("sdsadsa");
-        Driver.getDriver().findElement(By.id("loginPassword")).sendKeys("duodsadstech", Keys.ENTER);
+        SignInPage signInPage = new SignInPage();
+        signInPage.getUsername().sendKeys("username");
+        signInPage.getPassword().sendKeys("password");
+        signInPage.getLoginButton().click();
     }
     @Then("I should not be able to login")
     public void i_should_not_be_able_to_login() {

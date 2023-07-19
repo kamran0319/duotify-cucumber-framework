@@ -5,7 +5,7 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @CucumberOptions (
-
+          tags = "@signup",
           features = "src/test/resources",
           glue = "stepDefinitions"
 
