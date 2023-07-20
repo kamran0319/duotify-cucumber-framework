@@ -35,6 +35,6 @@ public class SignUpStepDefs {
     @Then("I should be able to sign up")
     public void i_should_be_able_to_sign_up() {
         Assert.assertEquals("http://duotify.us-east-2.elasticbeanstalk.com/browse.php?", Driver.getDriver().getCurrentUrl());
-        Driver.quitDriver();
+
     }
 }

@@ -14,7 +14,7 @@ public class LoginStepDefinitions {
 
 
     @Given("I am on the homepage")
-    public void i_am_on_the_homepage() {
+    public void dsbhbfdjsvjhsdbjbfdjsb() {
         Driver.getDriver().get(ConfigReader.getProperty("url"));
 
     }
@@ -28,7 +28,7 @@ public class LoginStepDefinitions {
     @Then("I should be able to login")
     public void i_should_be_able_to_login() {
         Assert.assertEquals("http://duotify.us-east-2.elasticbeanstalk.com/browse.php?", Driver.getDriver().getCurrentUrl());
-        Driver.quitDriver();
+
     }
 
     @When("I enter the invalid credentials")
@@ -41,6 +41,23 @@ public class LoginStepDefinitions {
     @Then("I should not be able to login")
     public void i_should_not_be_able_to_login() {
         Assert.assertNotEquals("http://duotify.us-east-2.elasticbeanstalk.com/browse.php?", Driver.getDriver().getCurrentUrl());
-        Driver.quitDriver();
+
+    }
+
+    @When("I enter invalid username or password")
+    public void i_enter_invalid_username_or_password() {
+        SignInPage signInPage = new SignInPage();
+        signInPage.getUsername().sendKeys("username");
+        signInPage.getPassword().sendKeys("password");
+
+    }
+    @When("click on the login button")
+    public void click_on_the_login_button() {
+        new SignInPage().getLoginButton().click();
+    }
+    @Then("I should see an error message")
+    public void i_should_see_an_error_message() {
+        SignInPage signInPage = new SignInPage();
+        Assert.assertTrue(signInPage.getErrorMessage().isDisplayed());
     }
 }

@@ -1,13 +1,14 @@
 package pages;
 
-import lombok.Data;
+
+import lombok.Getter;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import utils.Driver;
 
 
-@Data
+@Getter
 public class SignInPage {
 
     public SignInPage(){
@@ -16,6 +17,9 @@ public class SignInPage {
 
     @FindBy (id = "loginUsername")
     private WebElement username;
+
+    @FindBy (xpath = "//span[.='Your username or password was incorrect']")
+    private WebElement errorMessage;
 
     @FindBy (id = "loginPassword")
     private WebElement password;

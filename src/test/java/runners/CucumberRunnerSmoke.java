@@ -5,7 +5,7 @@ import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
 @CucumberOptions (
-          tags = "@REGRESSION",
+          tags = "@SMOKE",
           features = "src/test/resources", // the path where feature files are located
           glue = "stepDefinitions" // the path where step definitions are located
 //          ,dryRun = true // to generate step definitions quickly without running the code
@@ -13,5 +13,5 @@ import org.junit.runner.RunWith;
 )
 
 @RunWith(Cucumber.class)
-public class CucumberRunner {
+public class CucumberRunnerSmoke {
 }
