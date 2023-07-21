@@ -55,9 +55,19 @@ public class LoginStepDefinitions {
     public void click_on_the_login_button() {
         new SignInPage().getLoginButton().click();
     }
-    @Then("I should see an error message")
+    @Then("^I should see an error message$")
     public void i_should_see_an_error_message() {
         SignInPage signInPage = new SignInPage();
         Assert.assertTrue(signInPage.getErrorMessage().isDisplayed());
+    }
+
+
+
+    @When("I enter username as {string} and password as {string}")
+    public void i_enter_username_as_and_password_as(String user, String pass) {
+        SignInPage signInPage = new SignInPage();
+        signInPage.getUsername().sendKeys(user);
+        signInPage.getPassword().sendKeys(pass);
+        signInPage.getLoginButton().click();
     }
 }

@@ -15,11 +15,27 @@ Feature: Login feature
     When I enter the invalid credentials
     Then I should not be able to login
 
-    @test
+
   Scenario: User enters invalid credentials
     When I enter invalid username or password
     And click on the login button
     Then I should see an error message
+
+
+
+  Scenario: Login with valid credentials parameters
+    When I enter username as "" and password as "duotech"
+    Then I should be able to login
+
+
+  Scenario: Login with valid credentials parameters 2
+    When I enter username as "duotech2024" and password as "duotech2024"
+    Then I should be able to login
+
+
+
+
+
 #
 #  Scenario: User forgot password and resets it
 #    Given the user is on the login page

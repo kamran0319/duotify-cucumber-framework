@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
                "pretty", //for more detailed console output
                "html:target/cucumber-report/report.html" // generates a built in html report
           },
-          publish = true,
+          publish = true, //generates a cloud based report
           stepNotifications = true // displays detailed step results
 //          ,dryRun = true // to generate step definitions quickly without running the code
 
