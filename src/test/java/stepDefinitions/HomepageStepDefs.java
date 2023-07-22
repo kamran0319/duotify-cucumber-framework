@@ -70,4 +70,9 @@ public class HomepageStepDefs {
     public void the_song_should_start_playing(String expectedSongName) {
           Assert.assertEquals(expectedSongName, new AlbumPage().getCurrentSongName().getText());
     }
+
+    @Given("I navigate to the preapproval page")
+    public void i_navigate_to_the_preapproval_page() {
+
+    }
 }

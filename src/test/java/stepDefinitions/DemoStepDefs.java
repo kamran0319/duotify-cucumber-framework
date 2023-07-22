@@ -23,4 +23,41 @@ public class DemoStepDefs {
     public void i_still_feel_hungry(String word) {
         System.out.println("I feel " + word);
     }
+
+
+    @Given("I have the the query")
+    public void i_have_the_the_query(String docString) {
+        System.out.println(docString);
+    }
+    @When("send the query")
+    public void send_the_query() {
+
+    }
+    @Then("should have the result")
+    public void should_have_the_result() {
+
+    }
+
+
+    @When("I click on {string} link")
+    public void iClickOnLink(String args) {
+    }
+
+//    @When("I click on {word} link")
+//    public void iClickOnUserInfoLink() {
+//
+//    }
+
+    @Then("I should see a price {double}")
+    public void i_should_see_a_price(Double price) {
+
+    }
+
+//    @Then("I should see a price {float}")
+//    public void i_should_see_a_pricedcs(Float price) {
+//
+//    }
+
+
+
 }
