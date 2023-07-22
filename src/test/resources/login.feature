@@ -24,15 +24,25 @@ Feature: Login feature
 
 
   Scenario: Login with valid credentials parameters
-    When I enter username as "" and password as "duotech"
+    When I enter username as "duotech2023" and password as "duotech"
     Then I should be able to login
 
 
-  Scenario: Login with valid credentials parameters 2
+  Scenario: Login with invalid credentials parameters
     When I enter username as "duotech2024" and password as "duotech2024"
-    Then I should be able to login
+    Then I should not be able to login
 
-
+    @login
+  Scenario Outline: Login with invalid credentials parameters
+    When I enter username as "<username>" and password as "<password>"
+    Then I should not be able to login
+ Examples:
+   | username     | password   |
+   | duotech2024  | duotech    |
+   | duotech2003  | dt123432   |
+   | duotech324   | dt1344332  |
+   | duotech3243  | dt14352    |
+   | duotech32423 | dt12543542 |
 
 
 

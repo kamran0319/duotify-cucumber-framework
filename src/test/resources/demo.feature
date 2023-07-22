@@ -37,3 +37,17 @@ Feature: Demo
     Given I navigate to the preapproval page
     When I click on "Browse" link
     Then I should see a price 23.55
+
+
+   @scenarioOutline
+   Scenario Outline: Test google search
+     Given I am on the google search page
+     When I search for a "<searchTerm>"
+     Then The title of the results page should contain "<searchTerm>"
+
+    Examples:
+      | searchTerm |
+      | Chicken    |
+      | Bottle     |
+      | Iphone     |
+      | Flower     |

@@ -45,7 +45,22 @@ Feature: Music Streaming App Homepage
     Then the song "Maybe" should start playing
 
 
-  Scenario: User plays a song from an album
-    Given I navigate to the preapproval page
-    When I click on Products link
-    Then I should see a price 23.55
+#  Scenario: User plays a song from an album
+#    Given I navigate to the preapproval page
+#    When I click on Products link
+#    Then I should see a price 23.55
+
+  @songDD
+  Scenario Outline: User plays a song from an album
+    Given the user is on the homepage of the music streaming app
+    When the user selects the song "<song>" from the album "<album>" the user clicks on the play button
+    Then the song "<song>" should start playing
+
+    Examples:
+      | song               | album        |
+      | Marisa             | Marisa       |
+      | Daughter           | Oscillation  |
+      | Hero               | Escape       |
+      | Maybe              | Escape       |
+      | Salty Dub          | Clouds       |
+      | All That She Wants | Cruel Summer |

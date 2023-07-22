@@ -3,6 +3,10 @@ package stepDefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import org.junit.Assert;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import utils.Driver;
 
 public class DemoStepDefs {
 
@@ -37,6 +41,20 @@ public class DemoStepDefs {
     public void should_have_the_result() {
 
     }
+
+    @Given("I am on the google search page")
+    public void i_am_on_the_google_search_page() {
+        Driver.getDriver().get("https://www.google.com/");
+    }
+    @When("I search for a {string}")
+    public void i_search_for_a(String searchTerm) {
+        Driver.getDriver().findElement(By.name("q")).sendKeys(searchTerm, Keys.ENTER);
+    }
+    @Then("The title of the results page should contain {string}")
+    public void the_title_of_the_results_page_should_contain(String string) {
+         Assert.assertTrue(Driver.getDriver().getTitle().contains(string));
+    }
+
 
 
     @When("I click on {string} link")
