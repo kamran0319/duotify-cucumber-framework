@@ -64,3 +64,13 @@ Feature: Music Streaming App Homepage
       | Maybe              | Escape       |
       | Salty Dub          | Clouds       |
       | All That She Wants | Cruel Summer |
+
+     @datatable
+    Scenario: Verify Homepage links
+      Given the user is on the homepage of the music streaming app
+      Then the links on the page should be the following
+        | Search     |
+        | Browse     |
+        | Your Music |
+      And the user should be able to view and edit their user profile information, such as their name, email address, password and should be able to log out.
+#      single column -> list

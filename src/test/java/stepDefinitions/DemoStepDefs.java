@@ -3,10 +3,15 @@ package stepDefinitions;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+import io.cucumber.java.eo.Do;
+import io.cucumber.java.it.Ma;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import utils.Driver;
+
+import java.util.List;
+import java.util.Map;
 
 public class DemoStepDefs {
 
@@ -75,6 +80,31 @@ public class DemoStepDefs {
 //    public void i_should_see_a_pricedcs(Float price) {
 //
 //    }
+
+
+    @Given("I have the following table")
+    public void i_have_the_following_table(List<List<String>> dataTable) {
+        System.out.println(dataTable);
+        System.out.println(dataTable.get(0).get(1));
+    }
+
+
+    @Given("I have the following table as")
+    public void i_have_the_following_table_as(List<Map<String, String>> dataTable) {
+        System.out.println(dataTable);
+        System.out.println(dataTable.get(1).get("birthDate"));
+    }
+
+    @Given("I have the following table as map")
+    public void i_have_the_following_table_as_map(Map<String, String> dataTable) {
+        System.out.println(dataTable);
+    }
+
+    @Given("I have the following table as map where the value is a list")
+    public void i_have_the_following_table_as_map_where_the_value_is_a_list(Map<String, List<Double>> dataTable) {
+        System.out.println(dataTable);
+        System.out.println(dataTable.get("KSFO").get(1));
+    }
 
 
 

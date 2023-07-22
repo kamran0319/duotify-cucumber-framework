@@ -19,6 +19,10 @@ public class Homepage {
     @FindBy(xpath = "//div[@class='gridViewContainer']//div[@class='gridViewInfo']")
     private List<WebElement> albumsNames;
 
+    @FindBy(xpath = "//nav//span[@role='link'][@class='navItemLink']")
+    private List<WebElement> navBarLinks;
+
+
     @FindBy(xpath = "//span[.='Your Music']")
     private WebElement yourMusicLink;
 

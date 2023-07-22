@@ -51,3 +51,43 @@ Feature: Demo
       | Bottle     |
       | Iphone     |
       | Flower     |
+
+      @dt
+     Scenario: Demo of datatable as List of Lists
+
+       Given I have the following table
+         | Annie M. G. | Schmidt  | 1911-03-20 |
+         | Roald       | Dahl     | 1916-09-13 |
+         | Astrid      | Lindgren | 1907-11-14 |
+#         list of lists
+
+  @dt
+  Scenario: Demo of datatable as List of Maps
+
+    Given I have the following table as
+         | firstName   | lastName | birthDate  |
+         | Annie M. G. | Schmidt  | 1911-03-20 |
+         | Roald       | Dahl     | 1916-09-13 |
+         | Astrid      | Lindgren | 1907-11-14 |
+#     list of maps when there is a header row
+
+
+
+  @dt
+  Scenario: Demo of datatable as map
+    Given I have the following table as map
+         | KMSY | Louis Armstrong New Orleans International Airport     |
+         | KSFO | San Francisco International Airport               	|
+         | KSEA | Seattle-Tacoma International Airport              	|
+         | KJFK | John F. Kennedy International Airport             	|
+#     key value pair style table -> map
+
+  @dt
+  Scenario: Demo of datatable as map where the value is a list
+    Given I have the following table as map where the value is a list
+
+         | KMSY | 29.993333 |  -90.258056 |
+         | KSFO | 37.618889 | -122.375000 |
+         | KSEA | 47.448889 | -122.309444 |
+         | KJFK | 40.639722 |  -73.778889 |
+#

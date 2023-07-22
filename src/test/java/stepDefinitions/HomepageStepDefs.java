@@ -11,6 +11,12 @@ import utils.ConfigReader;
 import utils.Driver;
 import utils.SeleniumUtils;
 
+import io.cucumber.datatable.DataTable;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 public class HomepageStepDefs {
 
     @Given("the user is on the homepage of the music streaming app")
@@ -75,4 +81,29 @@ public class HomepageStepDefs {
     public void i_navigate_to_the_preapproval_page() {
 
     }
+
+    @Then("the links on the page should be the following")
+    public void the_links_on_the_page_should_be_the_following(List<String> expectedList) {
+
+
+        //The data types that cucumber automatically converts for us are of Unmodifiable type
+        // IF you need to modify them, you need to create a new modifiable list out of it and modify it
+
+//        System.out.println(actualList.getClass());
+//        System.out.println(expectedList.getClass());
+
+        // Sort the datatable list
+//        List<String> sorted = new ArrayList<>(expectedList);
+//        Collections.sort(sorted);
+//        System.out.println(sorted);
+
+        List<String> actualList = SeleniumUtils.getElementsText(new Homepage().getNavBarLinks());
+        List<String> latestActual = actualList.subList(0, actualList.size() - 1);
+
+        Assert.assertEquals(expectedList, latestActual);
+
+
+    }
+
+
 }
