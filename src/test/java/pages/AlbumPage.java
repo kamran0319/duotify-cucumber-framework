@@ -19,6 +19,28 @@ public class AlbumPage {
     @FindBy(xpath = "//span[@class='trackName']//span[@role='link']")
     private WebElement currentSongName;
 
+    @FindBy(tagName = "h2")
+    private WebElement albumName;
+
+    @FindBy(xpath = "//p[@role='link']")
+    private WebElement artistName;
+
+    public String getArtistName() {
+        return artistName.getText().substring(3);
+    }
+
+    public String getAlbumName() {
+        return albumName.getText();
+    }
+
+    public String getSongCount() {
+
+        return songCount.getText().split(" ")[0];
+    }
+
+    @FindBy(xpath = "//p[@role='link']//following-sibling::p")
+    private WebElement songCount;
+
 
     public void clickOnPlayButton(String nameOfSong){
         String xpath = "//span[@class='trackName'][.='"+nameOfSong+"']//parent::div//preceding-sibling::div//img";

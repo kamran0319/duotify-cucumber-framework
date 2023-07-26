@@ -1,8 +1,11 @@
 package stepDefinitions;
 
 import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.cucumber.java.it.Ma;
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
+import pages.AlbumPage;
 import pages.Homepage;
 import pages.PlaylistPage;
 import utils.SeleniumUtils;
@@ -43,4 +46,37 @@ public class AlbumStepDefs {
 
         Assert.assertEquals(expectedMod,actual);
     }
+
+
+    @When("the user clicks on the album {string}")
+    public void the_user_clicks_on_the_album(String album) {
+        new Homepage().clickOnAlbum(album);
+    }
+    @Then("the album should have the following info")
+    public void the_album_should_have_the_following_info(Map<String, String> expected) {
+
+        String expectedName = expected.get("name");
+        String expectedartist = expected.get("artist");
+        String expectedsongCount = expected.get("songCount");
+
+        AlbumPage albumPage = new AlbumPage();
+
+      // Hard assertions from JUnit 4
+        Assert.assertEquals(expectedName, albumPage.getAlbumName());
+        Assert.assertEquals(expectedartist, albumPage.getArtistName());
+        Assert.assertEquals(expectedsongCount, albumPage.getSongCount());
+
+
+        // Soft assertions from AssertJ
+        SoftAssertions softAssertions = new SoftAssertions();
+
+        softAssertions.assertThat(albumPage.getAlbumName()).isEqualTo(expectedName);
+        softAssertions.assertThat(albumPage.getArtistName()).isEqualTo(expectedartist);
+        softAssertions.assertThat(albumPage.getSongCount()).isEqualTo(expectedsongCount);
+
+        softAssertions.assertAll();
+
+
+    }
+
 }
