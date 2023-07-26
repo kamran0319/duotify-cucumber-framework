@@ -36,6 +36,7 @@ public class HomepageStepDefs {
     @When("the user clicks on the {string} link in the sidebar")
     public void theUserClicksOnTheLinkInTheSidebar(String linkText) {
            new Homepage().clickOnLink(linkText);
+           SeleniumUtils.waitFor(1);
     }
 
     @Then("the user should be able to access their personal music library, where they can view, create, edit and delete playlists.")

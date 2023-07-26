@@ -5,7 +5,10 @@ import io.cucumber.java.it.Ma;
 import org.junit.Assert;
 import pages.Homepage;
 import pages.PlaylistPage;
+import utils.SeleniumUtils;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -26,5 +29,18 @@ public class AlbumStepDefs {
 
         }
 
+    }
+
+
+    @Then("the following albums should be displayed")
+    public void the_following_albums_should_be_displayed(List<String> expected) {
+
+        List<String> actual = SeleniumUtils.getElementsText(new Homepage().getAlbumsNames());
+
+        List<String> expectedMod =  new ArrayList<>(expected);
+        Collections.sort(expectedMod);
+        Collections.sort(actual);
+
+        Assert.assertEquals(expectedMod,actual);
     }
 }

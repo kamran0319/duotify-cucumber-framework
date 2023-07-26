@@ -75,6 +75,7 @@
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>3.1.2</version>
                     <configuration>
+<!--                        name of the runner class-->
                         <includes>**/*CucumberRunner.java</includes>
                     </configuration>
                 </plugin>
