@@ -155,6 +155,9 @@ Hence we can use AssertJ library to implement soft assertions:
                 softAssertions.assertThat(“actual2”).isEqualTo(“expected2");
                 softAssertions.assertThat(“actual3”).isEqualTo(“expected3");
                 softAssertions.assertAll();
+
+
+
 Parallel and cross-browser tests can be implemented in following ways:
 1. Selenium Grid: server that automatically runs your tests in distributed mode on multiple browsers,operating systems, platforms
    Requires complex installation and configuration.
@@ -163,6 +166,7 @@ Parallel and cross-browser tests can be implemented in following ways:
    Requires subscription and costs money.
 3. Implement running cross-browser and parallel tests natively in your framework.
    Requires powerful server to run the tests.
+
  How to implement parallelism in Cucumber framework?
  We can enable parallel test in Cucumber natively with JUnit.
  But we need to remember that with this option you can run only FEATURES in parallel.
@@ -179,13 +183,20 @@ Parallel and cross-browser tests can be implemented in following ways:
                   <parallel>methods</parallel>
                    <threadCount>6</threadCount>
                 4. Run the tests thru command line with mvn test command
+
+
                 TDD (Test Driven Development) - TestNG based framework
                 BDD (Behavior Driven Development) - Cucumber+Junit based framework
+
+
   Tell me about your framework?
+
   General description -> components -> architecture -> more details (packages, classes)
+
   It is a Cucumber BDD test automation framework allows us to write test cases in Gherkin format
   as Cucumber scenarios which is understandable to all participants. The framework tech stack includes Java, Cucumber, Gherkin, JUnit, Selenium, Maven, Faker, Lombok, AssertJ.
-  My framework is built with using Page Object Model design pattern for easy maintenance and scalability. Besides, I also used Page Factory pattern for my page classes and Singleton pattern for my Driver class.
+  My framework is built with using Page Object Model design pattern for easy maintenance and scalability.
+  Besides, I also used Page Factory pattern for my page classes and Singleton pattern for my Driver class.
   My framework structure consists of packages for page classes, runner classes, step definition classes and hooks, utilities and features files. In my framework the cucumber feature files are
   connected to the step definition classes through a runner class where all test run configuration is added.
   Cucumber BDD Framework components:
@@ -208,6 +219,7 @@ Parallel and cross-browser tests can be implemented in following ways:
        - I haven’t implemented Abstraction or Polymorphism in any of my code since I had no need for them. But I can give you examples of them in my framework code.
          Polymorphism ->  WebDriver driver = new ChromeDriver()
          Abstraction -> WebDriver, WebElement, Alert, JavaScriptExecutor, TakesScreenshot
+
   Types of tests the framework supports:
     Functional,
     Smoke,
@@ -218,4 +230,4 @@ Parallel and cross-browser tests can be implemented in following ways:
     Headless,
     Parallel,
     Data-Driven tests
-    End-to-end tests
+    End-to-end tests (horizontal, vertical)

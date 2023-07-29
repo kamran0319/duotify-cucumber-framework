@@ -10,11 +10,10 @@ import utils.SeleniumUtils;
 
 import java.util.List;
 @Getter
-public class AlbumPage {
+public class AlbumPage extends BasePage{
 
-    public AlbumPage(){
-        PageFactory.initElements(Driver.getDriver(),this);
-    }
+
+    // AlbumPage albumPage  = new AlbumPage();
 
     @FindBy(xpath = "//span[@class='trackName']//span[@role='link']")
     private WebElement currentSongName;
