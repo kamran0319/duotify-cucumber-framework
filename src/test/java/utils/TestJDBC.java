@@ -1,6 +1,8 @@
 package utils;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TestJDBC {
 
@@ -72,6 +74,41 @@ public class TestJDBC {
             System.out.println(metaData.getColumnName(i));
         }
 
+
+        resultSet.beforeFirst();
+
+        List<Object> listOfLists =  new ArrayList<>();
+
+        for (int i = 1; i <=numOfRows ; i++) {
+             resultSet.absolute(i);
+            List<Object> inner =  new ArrayList<>();
+            for (int j = 1; j <=numOfColumns ; j++) {
+
+                inner.add(resultSet.getObject(j));
+
+            }
+            listOfLists.add(inner);
+
+        }
+
+        System.out.println(listOfLists);
+
+
+        statement.executeUpdate("INSERT INTO departments (dept_no, dept_name) VALUES ('d011', 'Machine Learning')");
+
+
+
+        resultSet = statement.executeQuery("select * from departments");
+
+
+        while(resultSet.next()){
+            System.out.println(resultSet.getString("dept_no") + " " + resultSet.getString("dept_name"));
+        }
+
+
+        resultSet.close();
+        statement.close();
+        connection.close();
 
     }
 }
