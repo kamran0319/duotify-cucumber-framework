@@ -1,6 +1,7 @@
 package pages;
 
 import lombok.Getter;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -22,7 +23,15 @@ public class PlaylistPage {
     @FindBy(xpath = "//div[@class='rightSection']/p[2]")
     private WebElement songCount;
 
+    @FindBy(xpath = " //button[.=\"DELETE PLAYLIST\"]")
+    private WebElement deleteButton;
 
+
+
+      public void acceptDeleteAlert(){
+          Alert alert = Driver.getDriver().switchTo().alert();
+          alert.accept();
+      }
     public void clickOnPlaylist(String name){
         Driver.getDriver().findElement(By.xpath("//div[@class='gridViewInfo'][.='"+name+"']")).click();
     }

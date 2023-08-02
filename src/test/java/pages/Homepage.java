@@ -30,6 +30,10 @@ public class Homepage {
         Driver.getDriver().findElement(By.xpath("//span[normalize-space(text())='"+linkText+"']")).click();
     }
 
+    public void clickOnUsernameLink(){
+        Driver.getDriver().findElement(By.xpath("//span[@onclick=\"openPage('settings.php')\"]")).click();
+    }
+
     public void clickOnAlbum(String name){
         Driver.getDriver().findElement(By.xpath("//div[@class='gridViewInfo'][.='"+name+"']")).click();
 
