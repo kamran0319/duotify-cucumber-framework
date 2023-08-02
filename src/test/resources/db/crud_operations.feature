@@ -1,18 +1,26 @@
-
+@DB
 Feature: Verify basic CRUD operations UI to DB flow
 
-  @DB
+   @create
   Scenario: Sign up with valid user details and verify user creation  - CREATE
-    Given the user is on the sign-up page
-    When the user enters valid info
+    Given I click on the sign up link
+    When I fill up the fields with valid info and click sign up
+    Then I should be able to sign up
     Then the system should create a new user in the "users" table of the database
 
 
-
+   @read
   Scenario: Sign up with valid user details and verify user info - READ
-    Given the user is on the sign-up page
-    When the user enters valid info
-    Then the created user info in the database should match
+    Given I click on the sign up link
+    When I fill up the fields with the following info and click sign up
+      | username    | first | last   | email                 | password |
+      | troy.darwin | Troy  | Darwin | troydarwing@gmail.com | troyd123 |
+    Then I should be able to sign up
+    Then the created user info in the database should be the following
+      | username    | first | last   | email                 | password |
+      | troy.darwin | Troy  | Darwin | troydarwing@gmail.com | troyd123 |
+
+
 
 
   Scenario: Update user email and verify the update - UPDATE

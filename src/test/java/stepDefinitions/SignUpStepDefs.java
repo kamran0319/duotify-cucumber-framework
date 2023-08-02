@@ -8,20 +8,40 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import pages.SignInPage;
 import pages.SignUpPage;
+import utils.DBUtils;
 import utils.Driver;
 
+import java.util.List;
+
 public class SignUpStepDefs {
+
+
+    String username;
 
     @Given("I click on the sign up link")
     public void i_click_on_the_sign_up_link() {
         SignInPage signInPage = new SignInPage();
         signInPage.getSignUpLink().click();
     }
+
+
+    @Then("the system should create a new user in the {string} table of the database")
+    public void the_system_should_create_a_new_user_in_the_table_of_the_database(String tableName) {
+
+        List<List<Object>> list = DBUtils.getQueryResultAsListOfLists("select username  from "+tableName+" where username='" + username + "1'");
+        System.out.println(list);
+        Assert.assertTrue(!list.isEmpty());
+
+
+    }
+
     @When("I fill up the fields with valid info and click sign up")
     public void i_fill_up_the_fields_with_valid_info_and_click_sign_up() {
         Faker faker = new Faker();
         SignUpPage signUpPage = new SignUpPage();
-        signUpPage.getUsername().sendKeys(faker.name().username());
+
+        username = faker.name().username();
+        signUpPage.getUsername().sendKeys(username);
         signUpPage.getFirstName().sendKeys(faker.name().firstName());
         signUpPage.getLastName().sendKeys(faker.name().lastName());
         String email = faker.internet().emailAddress();
@@ -37,4 +57,7 @@ public class SignUpStepDefs {
         Assert.assertEquals("http://duotify.us-east-2.elasticbeanstalk.com/browse.php?", Driver.getDriver().getCurrentUrl());
 
     }
+
+
+
 }

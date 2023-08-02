@@ -5,6 +5,7 @@ import org.junit.BeforeClass;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import utils.ConfigReader;
+import utils.DBUtils;
 import utils.Driver;
 
 import java.time.Duration;
@@ -21,10 +22,10 @@ public class Hooks {
 
     }
 
-//    @Before("@db or @DATABASE")
-//    public void setupScenarioForDB(){
-//        System.out.println("Establish db connection");
-//    }
+    @Before("@DB")
+    public void setupScenarioForDB(){
+        DBUtils.createConnection();
+    }
 
 //    @Before(order = 2)  // before each scenario
 //    public void setupScenario2(){
@@ -41,10 +42,10 @@ public class Hooks {
         Driver.quitDriver();
     }
 
-//    @After (order = 2) // after each scenario
-//    public void tearDownScenario2(){
-//        System.out.println("Second after ");
-//    }
+    @After ("@DB") // after each scenario
+    public void tearDownScenario2(){
+       DBUtils.close();
+    }
 
 
 //    @BeforeAll
