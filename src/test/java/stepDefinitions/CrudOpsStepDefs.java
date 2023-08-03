@@ -1,18 +1,27 @@
 package stepDefinitions;
 
+import com.github.javafaker.Faker;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.junit.Assert;
 import pages.*;
 import utils.DBUtils;
+import utils.SeleniumUtils;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class CrudOpsStepDefs {
 
+
+    SharedData sharedData;
+
+    public CrudOpsStepDefs(SharedData sharedData) {
+        this.sharedData = sharedData;
+    }
 
     @When("I fill up the fields with the following info and click sign up")
     public void i_fill_up_the_fields_with_the_following_info_and_click_sign_up(List<Map<String, String>> dataTable) {
@@ -77,70 +86,68 @@ public class CrudOpsStepDefs {
 
 
 
-    String expectedEmail;
-    @When("I update the email field to a new value {string}")
-    public void i_update_the_email_field_to_a_new_value(String newValue) throws InterruptedException {
-        expectedEmail = newValue;
-        new Homepage().clickOnUsernameLink();
-        new SettingsPage().getUserDetailsButton().click();
-        new UpdateDetailsPage().getEmailField().clear();
-        new UpdateDetailsPage().getEmailField().sendKeys(newValue);
 
-        new UpdateDetailsPage().getSaveButton().click();
-        Thread.sleep(1000);
 
-    }
-    @Then("the the success message should be displayed on the UI")
-    public void the_the_success_message_should_be_displayed_on_the_ui() throws InterruptedException {
-          Assert.assertEquals("Update successful", new UpdateDetailsPage().getSuccessMessage().getText() );
+
+
+
+
+    @Then("I create a new playlist with random name")
+    public void i_create_a_new_playlist_with_the_following_details() throws InterruptedException {
+         new Homepage().clickOnLink("Your Music");
+         new AllPlaylistsPage().getNewPlaylistButton().click();
+       sharedData.setRandomPlaylistName(new Faker().funnyName().name());
+         new AllPlaylistsPage().enterPlaylistName(sharedData.getRandomPlaylistName());
+
+
 
     }
+    @Then("the playlist should be created on the UI")
+    public void the_playlist_should_be_created_on_the_ui() {
+           Assert.assertTrue(new AllPlaylistsPage().getPlaylistByName(sharedData.getRandomPlaylistName()).isDisplayed());
+    }
+    @When("the user deletes the same playlist")
+    public void the_user_deletes_the_playlist_with_the_following_details() throws InterruptedException {
+           new AllPlaylistsPage().clickPlaylistByName(sharedData.getRandomPlaylistName());
+           new PlaylistPage().getDeleteButton().click();
+           new PlaylistPage().acceptDeleteAlert();
+
+    }
+    @Then("the playlist should be deleted on the UI")
+    public void the_playlist_should_be_deleted_on_the_ui() {
+
+        List<String> allPlaylists = SeleniumUtils.getElementsText(new AllPlaylistsPage().getAllPlaylists());
+        // Check if the playlist that we just deleted is part of the current playlist
+        System.out.println(allPlaylists);
+        Assert.assertTrue(!allPlaylists.contains(sharedData.getRandomPlaylistName()));
+
+
+    }
+    @Then("the playlist that belongs to the user {string} should be deleted in the database too")
+    public void the_playlist_that_belongs_to_the_user_should_be_deleted_in_the_database_too(String user) {
+        String sqlStatement = "select name from playlists where owner='"+user+"'";
+
+        List<List<Object>> listOfLists = DBUtils.getQueryResultAsListOfLists(sqlStatement);
+
+        List<Object> firstColumnDataAsList = DBUtils.getColumnData(listOfLists, 0);
+
+        System.out.println(firstColumnDataAsList);
+
+        Assert.assertTrue(!firstColumnDataAsList.contains(sharedData.getRandomPlaylistName()));
+
+
+    }
+
+
     @Then("the user email with username {string} is also updated in the database")
     public void the_user_email_with_username_is_also_updated_in_the_database(String username) {
 
         List<List<Object>> listOfList = DBUtils.getQueryResultAsListOfLists("SELECT email from users where username='" + username + "'");
         String actualEmail = (String)listOfList.get(0).get(0);
 
-        System.out.println(expectedEmail);
-        System.out.println(actualEmail);
-
-        Assert.assertEquals(expectedEmail,actualEmail);
+        Assert.assertEquals(sharedData.getRandomEmail(),actualEmail);
 
 
-
-    }
-
-    String namePlaylist;
-    @Then("I create a new playlist with the following details")
-    public void i_create_a_new_playlist_with_the_following_details(Map<String, String> dataTable) throws InterruptedException {
-         new Homepage().clickOnLink("Your Music");
-         new AllPlaylistsPage().getNewPlaylistButton().click();
-         namePlaylist = dataTable.get("playlistName");
-         new AllPlaylistsPage().enterPlaylistName(namePlaylist);
-        Thread.sleep(2000);
-
-
-    }
-    @Then("the playlist should be created on the UI")
-    public void the_playlist_should_be_created_on_the_ui() {
-           Assert.assertTrue(new AllPlaylistsPage().getPlaylistByName(namePlaylist).isDisplayed());
-    }
-    @When("the user deletes the playlist with the following details")
-    public void the_user_deletes_the_playlist_with_the_following_details(io.cucumber.datatable.DataTable dataTable) throws InterruptedException {
-           new AllPlaylistsPage().clickPlaylistByName(namePlaylist);
-           new PlaylistPage().getDeleteButton().click();
-           new PlaylistPage().acceptDeleteAlert();
-           Thread.sleep(2000);
-
-    }
-    @Then("the playlist should be deleted on the UI")
-    public void the_playlist_should_be_deleted_on_the_ui() {
-
-
-
-    }
-    @Then("the playlist that belongs to the user {string} should be deleted in the database too")
-    public void the_playlist_that_belongs_to_the_user_should_be_deleted_in_the_database_too(String string) {
 
     }
 

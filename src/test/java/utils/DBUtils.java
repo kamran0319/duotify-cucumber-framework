@@ -101,6 +101,15 @@ public class DBUtils {
         }
         return rowList;
     }
+
+
+    public static List<Object> getColumnData(List<List<Object>> data, int columnIndex){
+        List<Object> list =  new ArrayList<>();
+        for (List<Object> eachRow : data) {
+            list.add(eachRow.get(columnIndex));
+        }
+        return list;
+    }
     public static List<String> getColumnNames(String query) {
         executeQuery(query);
         List<String> columns = new ArrayList<>();

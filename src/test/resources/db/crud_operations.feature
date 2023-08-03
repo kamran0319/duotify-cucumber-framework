@@ -26,7 +26,7 @@ Feature: Verify basic CRUD operations UI to DB flow
   Scenario: Update user email and verify the update - UPDATE
     When I enter username as "duotech2023" and password as "duotech"
     Then I should be able to login
-    When I update the email field to a new value "dtdbcvsdvhcb32423@gmail.com"
+    When I update the email field to a new random value
     Then the the success message should be displayed on the UI
     And the user email with username "duotech2023" is also updated in the database
 
@@ -34,10 +34,8 @@ Feature: Verify basic CRUD operations UI to DB flow
   Scenario: Create and Delete Playlist - DELETE
     When I enter username as "duotech2023" and password as "duotech"
     Then I should be able to login
-    And I create a new playlist with the following details
-      |playlistName|Study|
+    And I create a new playlist with random name
     Then the playlist should be created on the UI
-    When the user deletes the playlist with the following details
-      |playlistName|Study|
+    When the user deletes the same playlist
     Then the playlist should be deleted on the UI
     And the playlist that belongs to the user "duotech2023" should be deleted in the database too

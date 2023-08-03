@@ -91,3 +91,10 @@ Feature: Demo
          | KSEA | 47.448889 | -122.309444 |
          | KJFK | 40.639722 |  -73.778889 |
 #
+
+
+  @shareData
+  Scenario: Demo
+    Given I enter random valid username and password
+    Then I should have the same username and password in the database
+
