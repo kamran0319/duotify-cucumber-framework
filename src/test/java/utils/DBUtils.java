@@ -103,10 +103,10 @@ public class DBUtils {
     }
 
 
-    public static List<Object> getColumnData(List<List<Object>> data, int columnIndex){
-        List<Object> list =  new ArrayList<>();
+    public static List<String> getColumnData(List<List<Object>> data, int columnIndex){
+        List<String> list =  new ArrayList<>();
         for (List<Object> eachRow : data) {
-            list.add(eachRow.get(columnIndex));
+            list.add((String)eachRow.get(columnIndex));
         }
         return list;
     }

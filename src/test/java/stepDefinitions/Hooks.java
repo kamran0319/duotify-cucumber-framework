@@ -14,7 +14,7 @@ public class Hooks {
 
 
 
-    @Before(order = 1)  // before each scenario
+    @Before("not @db_only")  // before each scenario
     public void setupScenario(){
         Driver.getDriver().manage().window().maximize();
         Driver.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
@@ -25,6 +25,7 @@ public class Hooks {
     @Before("@DB")
     public void setupScenarioForDB(){
         DBUtils.createConnection();
+
     }
 
 //    @Before(order = 2)  // before each scenario
@@ -32,7 +33,7 @@ public class Hooks {
 //        System.out.println("Second Before Hook");
 //    }
 
-    @After () // after each scenario
+    @After ("not @db_only") // after each scenario
     public void tearDownScenario(Scenario scenario){
         if(scenario.isFailed()){
             byte[] screenshotFile = ((TakesScreenshot) Driver.getDriver()).getScreenshotAs(OutputType.BYTES);
@@ -45,6 +46,7 @@ public class Hooks {
     @After ("@DB") // after each scenario
     public void tearDownScenario2(){
        DBUtils.close();
+
     }
 
 

@@ -12,6 +12,11 @@ import utils.Driver;
 
 public class LoginStepDefinitions {
 
+    SharedData sharedData;
+
+    public LoginStepDefinitions(SharedData sharedData) {
+        this.sharedData = sharedData;
+    }
 
     @Given("I am on the homepage")
     public void dsbhbfdjsvjhsdbjbfdjsb() {
@@ -65,9 +70,12 @@ public class LoginStepDefinitions {
 
     @When("I enter username as {string} and password as {string}")
     public void i_enter_username_as_and_password_as(String user, String pass) {
-        SignInPage signInPage = new SignInPage();
-        signInPage.getUsername().sendKeys(user);
-        signInPage.getPassword().sendKeys(pass);
-        signInPage.getLoginButton().click();
+                   new SignInPage().login(user,pass);
+    }
+
+
+    @When("I enter same credentials on the ui")
+    public void i_enter_same_credentials_on_the_ui() {
+        new SignInPage().login(sharedData.getUsername(), sharedData.getPassword());
     }
 }

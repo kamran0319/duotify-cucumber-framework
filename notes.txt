@@ -219,3 +219,54 @@ Parallel and cross-browser tests can be implemented in following ways:
     Parallel,
     Data-Driven tests
     End-to-end tests
+
+
+
+    Sharing data between Cucumber steps:
+
+    Sharing data between cucumber step definition methods in the same or different class is a common challenge in Cucumber framework.
+    We can use Cucumber pico container dependency for that purpose and use Depenedency Injection concept.
+    Steps:
+    1. Add the cucumber-picocontainer dependency:
+              <dependency>
+                   <groupId>io.cucumber</groupId>
+                   <artifactId>cucumber-picocontainer</artifactId>
+                   <version>7.13.0</version>
+               </dependency>
+    2. Create a common class for shared data and add the variables there with getters and setters (optionally use @Data annotation from Lombok)
+         @Data
+         public class SharedData {
+
+             private String password;
+             private String username;
+
+         }
+
+    3. In a Step definition class add an object of SharedData class as instance variable and initialize it in a constructor:
+
+        public class ExampleStepDefs {
+           SharedData sharedData;
+
+             public ExampleStepDefs(SharedData sharedData){
+                this.sharedData = sharedData;
+             }
+        }
+
+    4. Use setters and getters in a step defintion methods to initialize and get the shared data:
+
+         @Given("I enter random valid username and password")
+            public void i_enter_random_valid_username_and_password() {
+
+                sharedData.setPassword(new Faker().internet().password());  //initialize the password
+
+                Driver.getDriver().finsElement(By.xpath("passwordField")).sendKeys(sharedData.getPassword()); // use it
+
+            }
+    5. Share the data in the same or different step definition class's method with getter:
+
+       @Then("I should have the same username and password in the database")
+           public void i_should_have_the_same_username_and_password_in_the_database() {
+             String dbUsername =   DBUtils.get("some SQL");
+              Assert.assertEquals(sharedData.getUsername(), dbUsername); //sharedData.getUsername() is the shared data that is initialized in the other step
+
+           }

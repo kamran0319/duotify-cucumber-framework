@@ -2,6 +2,7 @@ package pages;
 
 
 import lombok.Getter;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -30,5 +31,11 @@ public class SignInPage {
 
     @FindBy (id = "hideLogin")
     private WebElement signUpLink;
+
+
+    public void login(String username, String pass){
+        this.username.sendKeys(username);
+        this.password.sendKeys(pass, Keys.ENTER);
+    }
 
 }

@@ -129,7 +129,7 @@ public class CrudOpsStepDefs {
 
         List<List<Object>> listOfLists = DBUtils.getQueryResultAsListOfLists(sqlStatement);
 
-        List<Object> firstColumnDataAsList = DBUtils.getColumnData(listOfLists, 0);
+        List<String> firstColumnDataAsList = DBUtils.getColumnData(listOfLists, 0);
 
         System.out.println(firstColumnDataAsList);
 

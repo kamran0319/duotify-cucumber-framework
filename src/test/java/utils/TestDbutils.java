@@ -1,5 +1,7 @@
 package utils;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -11,6 +13,10 @@ public class TestDbutils {
 
     public static void main(String[] args) throws SQLException {
 
+
+        String password = DigestUtils.md5Hex("donniedarko1990");
+
+        System.out.println(password);
 
         DBUtils.createConnection();
 
