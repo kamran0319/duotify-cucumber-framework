@@ -45,3 +45,20 @@ Feature: Verify business rules
     Then I should be able to login
     And I play a song "Whirls" from the album "Werk"
     Then the play count of the song in the database should be incremented by one
+
+
+   @playlistSongs
+  Scenario: Successfully adding a song to a playlist
+    Given I enter username as "duotech2023" and password as "duotech"
+    Then I should be able to login
+    And I add a song "Salty Dub"  from album "Clouds" to the playlist "House"
+    Then I should have the same song added to playlistSongs table
+    And the song should be deleted from the playlist
+
+
+   @timestamp
+  Scenario: Validate the timestamp
+    Given I click on the sign up link
+    When I fill up the fields with valid info and click sign up
+    Then I should be able to sign up
+    And the timestamp should be correct

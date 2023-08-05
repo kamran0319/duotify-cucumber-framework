@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
@@ -8,6 +9,9 @@ import pages.Homepage;
 import utils.DBUtils;
 import utils.SeleniumUtils;
 
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -136,5 +140,65 @@ public class BusinessRulesStepDefs {
         int actual = (Integer)listOfMaps.get(0).get("plays");
 
          Assert.assertEquals(sharedData.getNoOfplays()+1, actual);
+    }
+
+
+    @Then("I add a song {string}  from album {string} to the playlist {string}")
+    public void i_add_a_song_from_album_to_the_playlist(String song, String album, String playlist) {
+        new Homepage().clickOnAlbum(album);
+        new AlbumPage().addSongToPlaylist(song, playlist);
+        sharedData.setSong(song);
+        sharedData.setPlaylistName(playlist);
+
+
+
+    }
+    @Then("I should have the same song added to playlistSongs table")
+    public void i_should_have_the_same_song_added_to_playlist_songs_table() {
+        String query = "select songs.title, playlists.name, playlists.owner \n" +
+                "from\n" +
+                "playlistSongs\n" +
+                "join\n" +
+                "songs\n" +
+                "on playlistSongs.songId=songs.id\n" +
+                "join\n" +
+                "playlists\n" +
+                "on playlistSongs.playlistId=playlists.id\n" +
+                "where\n" +
+                "songs.title='"+sharedData.getSong()+"'\n" +
+                "and playlists.name = '"+sharedData.getPlaylistName()+"'\n" +
+                "and playlists.owner = '"+ sharedData.getUsername()+"'";
+
+        List<List<Object>> list = DBUtils.getQueryResultAsListOfLists(query);
+
+        Assert.assertTrue(!list.isEmpty());
+
+
+    }
+
+    @And("the song should be deleted from the playlist")
+    public void theSongShouldBeDeletedFromThePlaylist() throws SQLException {
+
+       String query = "DELETE\n" +
+               "from\n" +
+               "playlistSongs\n" +
+               "where\n" +
+               "songId=(select id from songs where title='"+sharedData.getSong()+"')\n" +
+               "and playlistId = (select id from playlists where name='"+sharedData.getPlaylistName()+"' and owner='"+sharedData.getUsername()+"')";
+
+       DBUtils.executeUpdate(query);
+    }
+
+    @And("the timestamp should be correct")
+    public void theTimestampShouldBeCorrect() {
+
+
+        List<List<Object>> list = DBUtils.getQueryResultAsListOfLists("select signUpDate from users where username='" + sharedData.getUsername() + "'");
+
+        LocalDateTime actual = (LocalDateTime)list.get(0).get(0);
+
+        Assert.assertEquals(sharedData.getTimestamp().toLocalDate(), actual.toLocalDate());
+
+
     }
 }

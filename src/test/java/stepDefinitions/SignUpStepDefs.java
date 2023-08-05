@@ -11,10 +11,18 @@ import pages.SignUpPage;
 import utils.DBUtils;
 import utils.Driver;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class SignUpStepDefs {
 
+
+    SharedData sharedData;
+
+    public SignUpStepDefs(SharedData sharedData) {
+        this.sharedData = sharedData;
+    }
 
     String username;
 
@@ -40,8 +48,8 @@ public class SignUpStepDefs {
         Faker faker = new Faker();
         SignUpPage signUpPage = new SignUpPage();
 
-        username = faker.name().username();
-        signUpPage.getUsername().sendKeys(username);
+         sharedData.setUsername(faker.name().username());
+        signUpPage.getUsername().sendKeys(sharedData.getUsername());
         signUpPage.getFirstName().sendKeys(faker.name().firstName());
         signUpPage.getLastName().sendKeys(faker.name().lastName());
         String email = faker.internet().emailAddress();
@@ -51,6 +59,7 @@ public class SignUpStepDefs {
         signUpPage.getPassword().sendKeys(pass);
         signUpPage.getPassword2().sendKeys(pass);
         signUpPage.getRegisterButton().click();
+        sharedData.setTimestamp(LocalDateTime.now());  // store the timestamp
     }
     @Then("I should be able to sign up")
     public void i_should_be_able_to_sign_up() {

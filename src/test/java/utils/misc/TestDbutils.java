@@ -1,6 +1,7 @@
-package utils;
+package utils.misc;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import utils.DBUtils;
 
 import java.sql.SQLException;
 import java.time.LocalDate;

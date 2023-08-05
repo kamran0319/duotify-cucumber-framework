@@ -71,6 +71,7 @@ public class LoginStepDefinitions {
     @When("I enter username as {string} and password as {string}")
     public void i_enter_username_as_and_password_as(String user, String pass) {
                    new SignInPage().login(user,pass);
+                   sharedData.setUsername(user);
     }
 
 

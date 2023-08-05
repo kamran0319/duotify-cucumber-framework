@@ -1,4 +1,6 @@
-package utils;
+package utils.misc;
+
+import utils.ConfigReader;
 
 import java.sql.*;
 import java.util.ArrayList;

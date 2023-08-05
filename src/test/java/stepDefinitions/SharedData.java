@@ -4,6 +4,7 @@ package stepDefinitions;
 import lombok.Data;
 import org.apache.commons.codec.digest.DigestUtils;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -13,6 +14,7 @@ public class SharedData {
     private String username;
     private String randomEmail;
     private String randomPlaylistName;
+    private String playlistName;
     private String first;
     private String last;
     private String email;
@@ -24,6 +26,8 @@ public class SharedData {
     private Integer noOfplays;
     private String song;
     private String album;
+
+    private LocalDateTime timestamp;
 
 
 
