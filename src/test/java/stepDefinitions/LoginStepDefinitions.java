@@ -26,7 +26,7 @@ public class LoginStepDefinitions {
     @When("I enter the valid credentials")
     public void i_enter_the_valid_credentials() {
         SignInPage signInPage = new SignInPage();
-        signInPage.getUsername().sendKeys(ConfigReader.getProperty("username")+"dcs");
+        signInPage.getUsername().sendKeys(ConfigReader.getProperty("username"));
         signInPage.getPassword().sendKeys(ConfigReader.getProperty("password"));
         signInPage.getLoginButton().click();
     }

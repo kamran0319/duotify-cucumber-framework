@@ -19,6 +19,11 @@ public class SharedData {
     private String passMD5;
     private List<String> dbColumnNames;
     private List<String> emailsColumn;
+    private List<String> genres;
+
+    private Integer noOfplays;
+    private String song;
+    private String album;
 
 
 

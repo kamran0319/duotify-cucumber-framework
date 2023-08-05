@@ -12,6 +12,8 @@ import pages.UpdateDetailsPage;
 import utils.DBUtils;
 
 import java.sql.SQLException;
+import java.util.List;
+import java.util.Map;
 
 public class CrudOpsDbStepDefs {
 
@@ -63,6 +65,39 @@ public class CrudOpsDbStepDefs {
           new SettingsPage().getUserDetailsButton().click();
         String emailText = new UpdateDetailsPage().getEmailField().getAttribute("value");
         Assert.assertEquals(sharedData.getEmail(), emailText);
+    }
+
+
+    @Given("I create a new user in the db with the following credentials")
+    public void i_create_a_new_user_in_the_db_with_the_following_credentials(List<Map<String, String>> dataTable) throws SQLException {
+
+        Map<String, String> map = dataTable.get(0);
+        sharedData.setUsername(map.get("username"));
+        sharedData.setFirst(map.get("first"));
+        sharedData.setLast(map.get("last"));
+        sharedData.setEmail(map.get("email"));
+        String pass = map.get("password");
+        sharedData.setPassword(pass);
+        sharedData.setPassMD5(DigestUtils.md5Hex(pass));
+
+//        String query = "INSERT INTO users (username, firstName, lastName, email, password)\n" +
+//                "values('"+username+"', '"+first+"', '"+last+"', '"+email+"', '"+passMD5+"' )";
+//
+
+        String query2 = String.format("INSERT INTO users (username, firstName, lastName, email, password)\n" +
+                        "values('%s', '%s', '%s', '%s', '%s' )", sharedData.getUsername(),
+                sharedData.getFirst(),
+                sharedData.getLast(),
+                sharedData.getEmail(),
+                sharedData.getPassMD5() );
+
+
+        DBUtils.executeUpdate(query2);
+    }
+    @Then("The user is deleted in the database")
+    public void the_user_is_deleted_in_the_database() throws SQLException {
+       String query = "DELETE from users where username='"+sharedData.getUsername()+"'";
+       DBUtils.executeUpdate(query);
     }
 
 }

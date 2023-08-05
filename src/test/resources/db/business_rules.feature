@@ -2,7 +2,7 @@
 Feature: Verify business rules
 
     @db_only
-  Scenario: verify user creation in db and validate on the ui  - CREATE
+  Scenario: verify column names for songs table
      When I retrieve the column names from the "songs" table
      Then it should have the following
        | id         |
@@ -15,6 +15,21 @@ Feature: Verify business rules
        | albumOrder |
        | plays      |
 
+  @genres @db_only
+  Scenario: Verify genres
+    When I send a query to retrieve genres from the db
+    Then The result should contain the following genres
+      | rap       |
+      | pop       |
+      | techno    |
+      | rnb       |
+      | house     |
+      | classical |
+      | jazz      |
+      | electronic |
+      | dance     |
+      | reggae    |
+      | reggaeton |
 
 
   @business_rule @db_only
@@ -24,15 +39,9 @@ Feature: Verify business rules
     Then it should not contain duplicates using sql query
 
 
-
-
-
-  @delete_db
-  Scenario: Create and Delete Playlist - DELETE
-#    When I enter username as "duotech2023" and password as "duotech"
-#    Then I should be able to login
-#    And I create a new playlist with random name
-#    Then the playlist should be created on the UI
-#    When the user deletes the same playlist
-#    Then the playlist should be deleted on the UI
-#    And the playlist that belongs to the user "duotech2023" should be deleted in the database too
+   @playCount
+  Scenario: Successful Song Playback
+    Given I enter the valid credentials
+    Then I should be able to login
+    And I play a song "Whirls" from the album "Werk"
+    Then the play count of the song in the database should be incremented by one
