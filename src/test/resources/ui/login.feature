@@ -29,7 +29,7 @@ Feature: Login feature
 
   @smoke
   Scenario: Login with invalid credentials parameters
-    When I enter username as "duotech2024" and password as "duotech2024"
+    When I enter username as "duotech2024" and password as "duotech20245"
     Then I should not be able to login
 
     @login
