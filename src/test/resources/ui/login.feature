@@ -24,12 +24,12 @@ Feature: Login feature
 
   @testing_GA @smoke
   Scenario: Login with valid credentials parameters
-    When I enter username as "duotech2023" and password as "duotech"
+    When I enter username as "duotech2023" and password as "duotech55"
     Then I should be able to login
 
   @smoke
   Scenario: Login with invalid credentials parameters
-    When I enter username as "duotech2024" and password as "duotech20245"
+    When I enter username as "duotech2024" and password as "duotech2024"
     Then I should not be able to login
 
     @login
