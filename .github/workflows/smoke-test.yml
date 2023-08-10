@@ -1,15 +1,16 @@
-name: Smoke Test
+name: Main branch smoke tests
 run-name: Running Smoke Tests
 on:
   push:
     branches:
       - main
 jobs:
-  Run-A-Smoke-Test:
+  Smoke-Test:
     runs-on: ubuntu-latest
     steps:
-      - name: Clone the repository
+      - name: Check out the repository
         uses: actions/checkout@v3
+
       - name: Set up JDK 17
         uses: actions/setup-java@v3
         with:
@@ -24,27 +25,13 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Setup Chrome Browser and ChromeDriver
-        run: |
-          sudo apt-get install -y unzip xvfb libxi6 libgconf-2-4
-          sudo curl -sS -o - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add
-          echo "deb http://dl.google.com/linux/chrome/deb/ stable main" | sudo tee -a /etc/apt/sources.list.d/google-chrome.list
-          sudo apt-get -y update
-          sudo apt-get -y install google-chrome-stable
-          wget https://chromedriver.storage.googleapis.com/$(curl https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip
-          unzip chromedriver_linux64.zip
-          sudo mv chromedriver /usr/bin/chromedriver
-          sudo chown root:root /usr/bin/chromedriver
-          sudo chmod +x /usr/bin/chromedriver
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: 'stable'
 
       - name: Run Smoke Tests
-        run: mvn test -D cucumber.filter.tags=@smoke
+        run: mvn test -D cucumber.filter.tags="@smoke"
 
-#      - name: Upload Test Results
-#        if: always()
-#        uses: actions/upload-artifact@v3
-#        with:
-#          name: Smoke Test Results HTML File
-#          path: target/cucumber-report/report.html
 
 
 

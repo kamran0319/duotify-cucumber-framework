@@ -27,7 +27,7 @@ Feature: Login feature
     When I enter username as "duotech2023" and password as "duotech"
     Then I should be able to login
 
-
+  @smoke
   Scenario: Login with invalid credentials parameters
     When I enter username as "duotech2024" and password as "duotech2024"
     Then I should not be able to login
