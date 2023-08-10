@@ -15,7 +15,7 @@ Feature: Sign up feature
     When I fill up the fields with valid info and click sign up
     Then I should be able to sign up
 
-  @valid
+  @valid @branchTest
   Scenario: Sign up with valid info 2
 
     When I fill up the fields with valid info and click sign up

@@ -5,7 +5,7 @@ Feature: Login feature
 
 
   @login
-  @DM-23 @smoke
+  @DM-23 @smoke @branchTest
   Scenario: Login with valid credentials
     When I enter the valid credentials
     Then I should be able to login
@@ -15,7 +15,7 @@ Feature: Login feature
     When I enter the invalid credentials
     Then I should not be able to login
 
-  @smoke
+  @smoke @branchTest
   Scenario: User enters invalid credentials
     When I enter invalid username or password
     And click on the login button
@@ -27,7 +27,7 @@ Feature: Login feature
     When I enter username as "duotech2023" and password as "duotech"
     Then I should be able to login
 
-  @smoke
+  @smoke  @branchTest
   Scenario: Login with invalid credentials parameters
     When I enter username as "duotech2024" and password as "duotech2024"
     Then I should not be able to login
