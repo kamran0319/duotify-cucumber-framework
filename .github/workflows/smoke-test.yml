@@ -32,6 +32,13 @@ jobs:
       - name: Run Smoke Tests in headless Chrome
         run: mvn test -D cucumber.filter.tags="@smoke" -Dbrowser=chromeheadless
 
+      - name: Generate Report
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+             name: Report File
+             path: target/cucumber-report/report.html
+
 
 
 
