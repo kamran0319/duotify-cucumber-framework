@@ -24,7 +24,7 @@ Feature: Login feature
 
   @testing_GA @smoke
   Scenario: Login with valid credentials parameters
-    When I enter username as "duotech2023" and password as "duotech55"
+    When I enter username as "duotech2023" and password as "duotech"
     Then I should be able to login
 
   @smoke
