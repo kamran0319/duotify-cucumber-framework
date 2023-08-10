@@ -1,5 +1,5 @@
-name: GitHub Actions Demo
-run-name: hajjkahdf
+name: GitHub Actions Test
+run-name: Testing GitHub Actions
 on:
     push:
       branches:
