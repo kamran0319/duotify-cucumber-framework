@@ -5,7 +5,7 @@ Feature: Login feature
 
 
   @login
-  @DM-23
+  @DM-23 @smoke
   Scenario: Login with valid credentials
     When I enter the valid credentials
     Then I should be able to login
@@ -15,14 +15,14 @@ Feature: Login feature
     When I enter the invalid credentials
     Then I should not be able to login
 
-
+  @smoke
   Scenario: User enters invalid credentials
     When I enter invalid username or password
     And click on the login button
     Then I should see an error message
 
 
-@testing_GA
+  @testing_GA @smoke
   Scenario: Login with valid credentials parameters
     When I enter username as "duotech2023" and password as "duotech"
     Then I should be able to login
