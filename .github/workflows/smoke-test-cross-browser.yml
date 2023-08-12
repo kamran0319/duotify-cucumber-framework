@@ -24,20 +24,20 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
-      - name: Setup Chrome Browser and ChromeDriver
+      - name: Setup Chrome Browser
         uses: browser-actions/setup-chrome@v1
         with:
           chrome-version: 'stable'
 
-      - name: Setup Chrome Browser and ChromeDriver
-        uses: browser-actions/setup-chrome@v1
+      - name: Setup Edge Browser
+        uses: browser-actions/setup-edge@v1
         with:
-          chrome-version: 'stable'
+          edge-version: 'stable'
 
-      - name: Setup Chrome Browser and ChromeDriver
-        uses: browser-actions/setup-chrome@v1
+      - name: Setup Firefox Browser
+        uses: browser-actions/setup-firefox@v1
         with:
-          chrome-version: 'stable'
+          firefox-version: 'stable'
 
       - name: Run Smoke Tests in headless Chrome
         if: always()
