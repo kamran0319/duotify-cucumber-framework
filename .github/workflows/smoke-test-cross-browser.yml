@@ -1,5 +1,5 @@
-name: Main branch smoke tests cross-browser
-run-name: Running Smoke Tests
+name: Main branch smoke tests cross-browser  11
+run-name: Running Smoke Tests  11
 on:
   push:
     branches:
@@ -31,8 +31,7 @@ jobs:
 
 
       - name: Run Smoke Tests in headless Chrome
-        if: always()
-        run: mvn test -Dcucumber.filter.tags="@smoke" -Dbrowser=chromeheadless -Dcucumber.plugin="html:target/cucumber-report/chrome-report.html"
+        run: mvn test -D cucumber.filter.tags="@smoke" -Dbrowser=chromeheadless
 
 
 
